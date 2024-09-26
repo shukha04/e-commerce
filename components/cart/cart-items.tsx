@@ -10,9 +10,10 @@ import {AnimatePresence, motion} from "framer-motion";
 import emptyCart from "@/public/empty-box.json"
 import Lottie from "lottie-react";
 import {createId} from "@paralleldrive/cuid2";
+import {Button} from "@/components/ui/button";
 
 export default function CartItems() {
-	const {cart, addToCart, removeFromCart} = useCartStore()
+	const {cart, addToCart, removeFromCart, setCheckoutProgress} = useCartStore()
 
 	const totalPrice = useMemo(() => {
 		return cart.reduce((acc, item) => {
@@ -27,7 +28,7 @@ export default function CartItems() {
 	}, [totalPrice])
 
 	return (
-		<motion.div>
+		<motion.div className="flex flex-col items-center">
 			{cart.length === 0 && (
 				<div className="flex flex-col w-full items-center">
 					<motion.div animate={{opacity: 1}} initial={{opacity: 0}} transition={{delay: 0.3, duration: 0.5}}>
@@ -37,8 +38,8 @@ export default function CartItems() {
 				</div>
 			)}
 			{cart.length > 0 && (
-				<div>
-					<Table>
+				<div className="h-88 w-full overflow-y-auto">
+					<Table className="max-w-2xl mx-auto">
 						<TableHeader>
 							<TableRow>
 								<TableCell>Product</TableCell>
@@ -103,7 +104,7 @@ export default function CartItems() {
 					</Table>
 				</div>
 			)}
-			<motion.div className="flex items-center justify-center relative overflow-hidden">
+			<motion.div className="flex items-center justify-center relative overflow-hidden my-4">
 				<span className="text-md">Total: $</span>
 				<AnimatePresence mode="popLayout">
 					{priceInLetters.map((letter, i) => (
@@ -121,6 +122,13 @@ export default function CartItems() {
 					))}
 				</AnimatePresence>
 			</motion.div>
+			<Button
+				onClick={() => setCheckoutProgress("payment-page")}
+				disabled={cart.length === 0}
+				className="max-w-md w-full"
+			>
+				Checkout
+			</Button>
 		</motion.div>
 	)
 }

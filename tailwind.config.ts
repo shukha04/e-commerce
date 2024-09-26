@@ -23,6 +23,9 @@ const config: Config = withUt({
 		  minHeight: {
 				"50vh": "50vh"
 		  },
+		  height: {
+				"88": "22rem"
+		  },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
   			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
