@@ -20,11 +20,8 @@ const config: Config = withUt({
 			maxWidth: {
 				"8xl": "88rem"
 			},
-		  minHeight: {
-				"50vh": "50vh"
-		  },
-		  height: {
-				"88": "22rem"
+		  maxHeight: {
+			  "88": "22rem"
 		  },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -1,6 +1,8 @@
 import Products from "@/components/products/products";
 import {db} from "@/server";
 
+export const revalidate = 3600;
+
 export default async function Home() {
   const data = await db.query.productVariants.findMany({
     with: {
@@ -12,7 +14,7 @@ export default async function Home() {
   })
 
   return (
-    <main className="text-4xl">
+    <main>
       <Products variants={data} />
     </main>
   );

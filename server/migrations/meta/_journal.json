@@ -134,6 +134,13 @@
       "when": 1727370902606,
       "tag": "0018_good_bug",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1727380665666,
+      "tag": "0019_curvy_black_bolt",
+      "breakpoints": true
     }
   ]
 }

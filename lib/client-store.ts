@@ -19,13 +19,23 @@ export type CartState = {
 	checkoutProgress: "cart-page" | "payment-page" | "confirmation-page",
 	setCheckoutProgress: (val: "cart-page" | "payment-page" | "confirmation-page") => void,
 	addToCart: (item: CartItem) => void,
-	removeFromCart: (item: CartItem) => void
+	removeFromCart: (item: CartItem) => void,
+	clearCart: () => void,
+	cartOpen: boolean,
+	setCartOpen: (val: boolean) => void
 }
 
 export const useCartStore = create<CartState>()(persist((set) => ({
 	cart: [],
+	cartOpen: false,
+	setCartOpen: (val) => set({cartOpen: val}),
 	checkoutProgress: "cart-page",
 	setCheckoutProgress: (val) => set((state) => ({checkoutProgress: val})),
+	clearCart: () => {
+		set({
+			cart: []
+		})
+	},
 	addToCart: (item) => set((state) => {
 		const existingItem = state.cart.find((cartItem) => cartItem.variant.variantID === item.variant.variantID)
 		if (existingItem) {

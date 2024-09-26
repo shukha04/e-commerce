@@ -12,13 +12,14 @@ import {AnimatePresence, motion} from "framer-motion";
 import CartItems from "@/components/cart/cart-items";
 import CartMessage from "@/components/cart/cart-message";
 import Payment from "@/components/cart/payment";
+import OrderConfirmed from "@/components/cart/order-confirmed";
 
 
 export default function CartDrawer() {
-	const {cart, checkoutProgress} = useCartStore();
+	const {cart, checkoutProgress, setCheckoutProgress, cartOpen, setCartOpen} = useCartStore();
 
 	return (
-		<Drawer>
+		<Drawer open={cartOpen} onOpenChange={setCartOpen}>
 			<DrawerTrigger>
 				<div className="relative px-2">
 					<AnimatePresence>
@@ -35,13 +36,14 @@ export default function CartDrawer() {
 					<ShoppingBag />
 				</div>
 			</DrawerTrigger>
-			<DrawerContent className="min-h-50vh">
+			<DrawerContent className="fixed bottom-0 left-0 max-h-[70vh] min-h-[50vh]">
 				<DrawerHeader>
 					<CartMessage />
 				</DrawerHeader>
 				<div className="overflow-auto p-4">
 					{checkoutProgress === "cart-page" && <CartItems />}
 					{checkoutProgress === "payment-page" && <Payment />}
+					{checkoutProgress === "confirmation-page" && <OrderConfirmed />}
 				</div>
 			</DrawerContent>
 		</Drawer>

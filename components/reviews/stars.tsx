@@ -9,9 +9,9 @@ export default function Stars({rating, totalReviews, size = 14}: {rating: number
 			{[1,2,3,4,5].map((star) => (
 				<Star size={size} key={star} className={cn("text-primary bg-transparent transition-all duration-300 ease-in-out", rating >= star ? "fill-primary" : "fill-muted")} />
 			))}
-			{totalReviews && (
+			{totalReviews ? (
 				<span className="text-secondary-foreground font-bold text-sm ml-2">{totalReviews} reviews</span>
-			)}
+			) : null}
 		</div>
 	)
 }
