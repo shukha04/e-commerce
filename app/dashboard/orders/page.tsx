@@ -21,11 +21,19 @@ import {
 } from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {formatDistance, subMinutes} from "date-fns";
-import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger
+} from "@/components/ui/dialog";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function OrdersPage() {
 	const user = await auth();
@@ -74,7 +82,7 @@ export default async function OrdersPage() {
 								<TableCell>{order.id}</TableCell>
 								<TableCell>${order.total}</TableCell>
 								<TableCell>
-									<Badge className={order.status === "succeeded" ? "bg-green-600" : "bg-secondary-foreground"}>{order.status}</Badge>
+									<Badge className={order.status === "succeeded" ? "bg-green-600 hover:bg-green-700" : "bg-secondary-foreground"}>{order.status}</Badge>
 								</TableCell>
 								<TableCell className="text-xs font-medium">{formatDistance(subMinutes(order.created!, 0), new Date(), {addSuffix: true})}</TableCell>
 								<TableCell>
@@ -93,11 +101,23 @@ export default async function OrdersPage() {
 														</Button>
 													</DialogTrigger>
 												</DropdownMenuItem>
+												{order.receiptURL ? (
+													<DropdownMenuItem>
+														<Button asChild className="w-full" variant="ghost">
+															<Link href={order.receiptURL} target="_blank">
+																Download Receipt
+															</Link>
+														</Button>
+													</DropdownMenuItem>
+													) : null}
 											</DropdownMenuContent>
 										</DropdownMenu>
-										<DialogContent>
+										<DialogContent className="rounded-md">
 											<DialogHeader>
 												<DialogTitle>Order Details #{order.id}</DialogTitle>
+												<DialogDescription>
+													Your order total is ${order.total}
+												</DialogDescription>
 											</DialogHeader>
 											<Card className="overflow-auto p-2 flex flex-col gap-4">
 												<Table>
