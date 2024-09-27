@@ -12,7 +12,7 @@ import {motion, AnimatePresence} from "framer-motion";
 export default function Algolia() {
 	const [active, setActive] = useState(false)
 
-	const MCard = useMemo(() => motion(Card), [])
+	const MCard = useMemo(() => motion.create(Card), [])
 
 	return (
 		<InstantSearchNext
@@ -56,7 +56,7 @@ export default function Algolia() {
 function Hit({hit}: {
 	hit: {
 		objectID: string,
-		id: string,
+		productID: string,
 		price: number,
 		title: string,
 		productType: string,
@@ -79,7 +79,7 @@ function Hit({hit}: {
 }) {
 	return (
 		<div className="p-4 mb-2 hover:bg-secondary ">
-			<Link href={`/products/${hit.objectID}?id=${hit.objectID}&productID=${hit.id}&price=${hit.price}&title=${hit.title}&type=${hit.productType}&image=${hit.variantImages}&variantID=${hit.objectID}`}>
+			<Link href={`/products/${hit.objectID}?id=${hit.objectID}&productID=${hit.productID}&price=${hit.price}&title=${hit.title}&type=${hit.productType}&image=${hit.variantImages}&variantID=${hit.objectID}`}>
 				<div className="flex w-full gap-12 items-center justify-between">
 					<Image src={hit.variantImages} alt={hit.title} width={60} height={60} />
 					<p dangerouslySetInnerHTML={{__html: hit._highlightResult.title.value}} />
